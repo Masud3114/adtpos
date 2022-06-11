@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="products_barcode" language="groovy" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2b1158ba-9624-41e8-9777-b6103c65bfc0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="where_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA["(i.bar_cod is not null AND i.bar_cod !='')"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT c.dcmpny_num, c.dcmpny_logo,
+c.dcmpny_adrs,i.item_name, i.item_model, i.bar_cod,
+vibrand_info.pram_name AS brand_name,vicat_info.pram_name AS category_name,
+vistore_info.pram_name AS wh_name,vitype_info.pram_name AS type_name,
+viunit_info.pram_name AS unit_name
+FROM dcmpny_info c, item_info i
+LEFT JOIN vibrand_info ON i.item_brand=vibrand_info.slno
+LEFT JOIN vicat_info ON i.item_cat=vicat_info.slno
+LEFT JOIN vistore_info ON i.item_store=vistore_info.slno
+LEFT JOIN vitype_info ON i.item_type=vitype_info.slno
+LEFT JOIN viunit_info ON i.item_unit=viunit_info.slno
+WHERE $P!{where_code}]]>
+	</queryString>
+	<field name="dcmpny_num" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dcmpny_logo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dcmpny_adrs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_model" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bar_cod" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brand_name" class="java.lang.String"/>
+	<field name="category_name" class="java.lang.String"/>
+	<field name="wh_name" class="java.lang.String"/>
+	<field name="type_name" class="java.lang.String"/>
+	<field name="unit_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<componentElement>
+				<reportElement x="19" y="6" width="226" height="58" uuid="64798eff-ba93-4b4e-a561-684dd06b2a71"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="true" checksumRequired="false" barHeight="50">
+					<jr:codeExpression><![CDATA[$F{bar_cod}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

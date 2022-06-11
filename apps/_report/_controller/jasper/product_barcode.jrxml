@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="product_list" language="groovy" columnCount="4" pageWidth="595" pageHeight="842" columnWidth="138" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c85ebde-9745-4651-ab95-41e50e25ce90">
+	<property name="ireport.zoom" value="2.3579476910000063"/>
+	<property name="ireport.x" value="53"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="root_path" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:/Only for IT/Online Backup/Google Drive/Business_soft/monchobi/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="where_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" 1  AND (i.bar_cod is not null AND i.bar_cod !='')"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="barcode_qty" class="java.lang.String">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT c.dcmpny_num, c.dcmpny_logo,
+c.dcmpny_adrs,i.item_name, i.item_model, i.bar_cod,i.item_srate,
+vibrand_info.pram_name AS brand_name,vicat_info.pram_name AS category_name,
+vistore_info.pram_name AS wh_name,vitype_info.pram_name AS type_name,
+viunit_info.pram_name AS unit_name
+FROM dcmpny_info c, item_info i
+CROSS JOIN (
+SELECT @num_of_rows := @num_of_rows + 1 as get_row
+FROM item_info t, (SELECT @num_of_rows := 0) r
+GROUP BY get_row
+HAVING get_row<=$P{barcode_qty}) N
+LEFT JOIN vibrand_info ON i.item_brand=vibrand_info.slno
+LEFT JOIN vicat_info ON i.item_cat=vicat_info.slno
+LEFT JOIN vistore_info ON i.item_store=vistore_info.slno
+LEFT JOIN vitype_info ON i.item_type=vitype_info.slno
+LEFT JOIN viunit_info ON i.item_unit=viunit_info.slno
+WHERE $P!{where_code}
+ORDER BY bar_cod]]>
+	</queryString>
+	<field name="dcmpny_num" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dcmpny_logo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dcmpny_adrs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_model" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bar_cod" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_srate" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="brand_name" class="java.lang.String"/>
+	<field name="category_name" class="java.lang.String"/>
+	<field name="wh_name" class="java.lang.String"/>
+	<field name="type_name" class="java.lang.String"/>
+	<field name="unit_name" class="java.lang.String"/>
+	<variable name="slno" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{dcmpny_num}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="137" height="59" uuid="6fd8695c-7c57-4248-8189-87f44c1dd837"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<componentElement>
+				<reportElement x="0" y="11" width="137" height="35" uuid="8a4cc66c-41e7-47a3-a6a2-e6b12e8e57a3"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom" checksumMode="auto">
+					<jr:codeExpression><![CDATA[$F{bar_cod}!=null?$F{bar_cod}:""]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<textField>
+				<reportElement x="5" y="0" width="127" height="11" uuid="b9bc6db9-3013-4e65-afcf-f1443fd9eb82"/>
+				<textElement textAlignment="Justified">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="46" width="127" height="10" uuid="e266031d-ca05-4718-828f-10c20d8200ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Retail Price: "+$F{item_srate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

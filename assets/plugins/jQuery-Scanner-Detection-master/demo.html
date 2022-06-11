@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<h2>HTML Forms</h2>
+
+<form action="">
+  First name:<br>
+  <input type="text" id="scannerInput" name="id" value="">
+  <input type="text" id="scannerqty" name="qty" value="">
+  <br>
+  Last name:<br>
+  <input type="text" id="userInput" name="lastname" value="">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="jquery.scannerdetection.js"></script>
+<script>
+$(document).scannerDetection({
+	   
+  //https://github.com/kabachello/jQuery-Scanner-Detection
+
+	timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+	avgTimeByChar: 40, // it's not a barcode if a character takes longer than 100ms
+	preventDefault: true,
+
+	endChar: [20],
+		onComplete: function(barcode, qty){
+			//validScan = true;
+			$('#scannerInput').val (barcode);
+			$('#scannerqty').focus();
+			if(barcode==$('#scannerInput').val()){
+				qty=$('#scannerqty').val()+1;
+			}else{
+				$('#scannerqty').val(qty);
+			}
+		
+		} // main callback function	,
+	,
+	onError: function(string, qty) {
+
+	//$('#userInput').val ($('#userInput').val()  + string);
+
+	
+	}
+	
+	
+});
+</script>
+</body>
+</html>

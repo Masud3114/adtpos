@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cs_invoice_sub" language="groovy" pageWidth="210" pageHeight="802" columnWidth="210" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b8735171-8747-4730-8088-845d3ed7e6e5">
+	<property name="ireport.zoom" value="2.8531167061100033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT item_info.item_name, viunit_info.pram_name AS item_unit,
+inop_details.item_qty, inop_details.sale_rate,
+round((inop_details.item_qty*inop_details.sale_rate),2) AS line_total
+FROM inop_details
+LEFT JOIN item_info ON inop_details.item_code=item_info.item_code
+LEFT JOIN viunit_info ON item_info.item_unit=viunit_info.slno
+WHERE inop_details.hslno=$P{sid}]]>
+	</queryString>
+	<field name="item_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_unit" class="java.lang.String"/>
+	<field name="item_qty" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sale_rate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="line_total" class="java.lang.Double"/>
+	<columnHeader>
+		<band height="14">
+			<staticText>
+				<reportElement mode="Transparent" x="21" y="0" width="83" height="14" backcolor="#F5F5F5" uuid="a8905137-c819-4025-af47-24127f758c1b"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Product Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="21" height="14" backcolor="#F5F5F5" uuid="88f326a5-2286-4c4b-a1f5-a5c03743b782"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="104" y="0" width="30" height="14" backcolor="#F5F5F5" uuid="d1fb6f06-c655-46fc-903b-6db657ec723c"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="134" y="0" width="35" height="14" backcolor="#F5F5F5" uuid="81fcf6b1-9cee-489c-8a46-0831334d7a11"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="169" y="0" width="41" height="14" backcolor="#F5F5F5" uuid="efa6a018-f188-4c86-b721-923d67ef025b"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amt.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="21" y="0" width="83" height="14" uuid="f3ea92c8-579d-43b6-b1b5-3acbc239de04"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="21" height="14" uuid="531cf848-7c31-468e-ba27-b8f7d78904c2"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="104" y="0" width="30" height="14" uuid="13684f3c-e85f-4f1c-86ce-042a75c98d12"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_qty}+" "+$F{item_unit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="134" y="0" width="35" height="14" uuid="165625b2-5c42-422e-a9c1-dc0764d244f3"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_rate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="169" y="0" width="41" height="14" uuid="b266a2f7-2ba6-453d-b8d0-0866386205a2"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#666666"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{line_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

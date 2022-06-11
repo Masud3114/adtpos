@@ -1,0 +1,14 @@
+/node_modules
+/fonts
+/assets/dist
+app/_report/_controller/jasper_report/export
+Plug_ins/PHPMailer/docs/
+*.sql
+*.pdf
+*.jpg
+*.png
+*.gip
+*.zip
+*.rar
+*.xlsx
+/vendor/

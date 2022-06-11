@@ -1,0 +1,42 @@
+<?php
+$table = 'acct_glheader';
+$primaryKey = 'slno';
+$columns = array(
+	array( 'db' => 'xvoucher',					'dt' => 0),
+	array( 'db' => 'xdate',						'dt' => 1),
+	array( 'db' => 'xref',						'dt' => 2),
+	array( 'db' => 'xnarration',				'dt' => 3),
+	array(
+			'db'		=> 'slno',
+			'dt'		=> 4,
+			'button'	=>array(
+				'edit_button'=>array(
+					'type'			=> 'alink',
+					'title'			=> 'Modify',
+					'icon'			=> 'fa-edit',
+					'class'			=> 'bg-blue waves-effect',
+					'hRef'				=> array(
+						'pg'			=> 'acct_jvEntry',
+						'sx_code'		=> array(
+							'db'		=> 'slno',
+						)
+					)
+				),'print_voucher'=>array(
+					'type'			=> 'alink',
+					'title'		=> 'Print Voucher',
+					'icon'		=> 'fa-print',
+					'class'		=> 'bg-blue waves-effect print_voucher',
+					'extra_elm'		=> array(
+						'data'	=> array(
+							'db'		=> 'slno',
+						),
+					),
+				),
+			),
+	)
+	
+);
+echo json_encode(
+	SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+);
+?>

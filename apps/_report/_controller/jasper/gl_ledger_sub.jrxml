@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gl_ledger_sub" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="df389aee-6877-4155-954a-ca681063ed2d">
+	<property name="ireport.zoom" value="1.3636363636363635"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="from_date" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["2019-11-11"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="acct_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA["CUS-00000007"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT SUM(acct_gldetailv.xdebit) AS ydebit,
+SUM(acct_gldetailv.xcredit) AS ycredit
+FROM acct_gldetailv
+WHERE (CASE WHEN acct_gldetailv.acct_code_sub IS NOT NULL AND  acct_gldetailv.acct_code_sub!='' THEN acct_gldetailv.acct_code_sub ELSE acct_gldetailv.acct_code END) = $P{acct_code}
+AND acct_gldetailv.xdate<$P{from_date}]]>
+	</queryString>
+	<field name="ydebit" class="java.lang.Double"/>
+	<field name="ycredit" class="java.lang.Double"/>
+	<variable name="open_xdebit" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{ydebit}!=null?$F{ydebit}:0]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="open_xcredit" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{ycredit}!=null?$F{ycredit}:0]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="return_balance" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{ycredit}-$F{ydebit}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="1"/>
+	</detail>
+</jasperReport>

@@ -1,0 +1,78 @@
+.pghrd{
+	background: -moz-linear-gradient(right, #FFFFFF 20%, #FF7E02 80%); /* FF3.6+ */
+	background: -webkit-linear-gradient(right, #FFFFFF 20%,#FD8C1C 80%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(right, #FFFFFF 0%,#FD8C1C 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(right, #FFFFFF 0%,#FD8C1C 100%);
+	background: linear-gradient(right, #FFFFFF 0%,#FD8C1C 100%);
+	}
+.imbdy {
+	margin-top:10px;
+   	min-height:450px;
+	width:90%;
+	margin-left:5%;
+}
+/*Start Image Upload code*/	
+.imgpreview
+	{
+	height:130px;
+	width:115px;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size:10px;
+	border: solid 1px #999999;
+	padding:4px;
+	}
+#photoimg_wrapper {
+    width: 93px;
+    height: 28px;
+    background: url('../_img/file_browse_normal.png') 0 0 no-repeat;
+    border:none;
+    overflow:hidden;
+	cursor:pointer;
+}
+#photoimg_wrapper:hover {
+    background: url('../_img/file_browse_hover.png') 0 0 no-repeat;
+}
+#photoimg_wrapper:active {
+    background: url('../_img/file_browse_pressed.png') 0 0 no-repeat;
+}
+
+#photoimg{
+    opacity:0.0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	cursor:pointer;
+}
+/*End Image Upload code*/
+
+/*Start Live Validation Massage  */
+.LV_validation_message{
+    font-weight:bold;
+    margin:0 0 0 5px;
+	font-size:10px;
+}
+
+.LV_valid {
+    color:#00CC00;
+}
+	
+.LV_invalid {
+    color:#CC0000;
+}
+    
+.LV_valid_field,
+input.LV_valid_field:hover, 
+input.LV_valid_field:active,
+textarea.LV_valid_field:hover, 
+textarea.LV_valid_field:active {
+    border: 1px solid #00CC00;
+}
+    
+.LV_invalid_field, 
+input.LV_invalid_field:hover, 
+input.LV_invalid_field:active,
+textarea.LV_invalid_field:hover, 
+textarea.LV_invalid_field:active {
+    border: 1px solid #CC0000;
+}
+/*End Live Validation Massage  */
