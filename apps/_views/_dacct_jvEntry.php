@@ -28,17 +28,9 @@
 									<center><h3>Journal Entry</h3></center>
 								</div>
 								<div class="body">
-									<ul class="nav nav-tabs myTab" role="tablist">
-										<li role="presentation" class="active">
-											<a class="waves-effect" href="#acct_glheader" data-toggle="tab">
-												<i class="material-icons">text_format</i> Journal Head
-											</a>
-										</li>
-										<li role="presentation">
-											<a class="waves-effect" href="#acct_gldetails" data-toggle="tab">
-												<i class="material-icons">attach_file</i> Journal Details
-											</a>
-										</li>
+									<ul class="nav nav-tabs" role="tablist" id="myTab">
+										<li role="presentation" class="active"><a class="waves-effect" href="#acct_glheader" data-toggle="tab"><i class="material-icons">text_format</i> Journal Head</a></li>
+										<li role="presentation"><a class="waves-effect" href="#acct_gldetails" data-toggle="tab"><i class="material-icons">attach_file</i> Journal Details</a></li>
 										<?php
 										if(isset($pickval['slno'])
 										&& $pickval['slno']!=NUll){
@@ -52,7 +44,7 @@
 										}
 										?>
 									</ul>
-									<div class="tab-content">
+									<div class="tab-content row" id="myTabContent">
 										<div role="tabpanel" class="tab-pane fade in active" id="acct_glheader">
 											<div class="col-md-4 card">
 												<div class="body">

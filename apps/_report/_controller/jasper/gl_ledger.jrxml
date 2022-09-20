@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA["Design & Developed By: Advance Design & Technology BD.||Hotline: +88-01714-693114"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="root_path" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["D:\\Only for IT\\Online Backup\\Google Drive\\Business_soft\\monchobi\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["D:\\Only for IT\\Online Backup\\Google Drive\\Business_soft\\adt_pos\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="where_code" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
@@ -36,8 +36,9 @@ acct_gldetailv.acct_typec,
 (CASE WHEN acct_gldetailv.xChequeBank IS NOT NULL AND acct_gldetailv.xChequeBank!='' THEN CONCAT(acct_gldetailv.xChequeBank,' | ',acct_gldetailv.xChequeNo,' | ',acct_gldetailv.xChequeDate) END ) AS bnk_details,
 acct_gldetailv.xdebit,
 acct_gldetailv.xcredit
-FROM dcmpny_info, acct_gldetailv
+FROM acct_gldetailv
 LEFT JOIN acct_glheader ON acct_gldetailv.hslno=acct_glheader.slno
+LEFT JOIN dcmpny_info ON acct_glheader.zid=dcmpny_info.slno
 LEFT JOIN acct_vou_prfx ON acct_glheader.prfx_name=acct_vou_prfx.prfx_name
 WHERE $P!{where_code}
 ORDER BY acct_code ASC, xdate ASC, xvoucher ASC]]>

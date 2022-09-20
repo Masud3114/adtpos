@@ -3,8 +3,8 @@ if($_SERVER['REQUEST_METHOD']==='POST' && defined('BASEPATH')){
 	if(isset($_POST['from_date']) 
 		&& isset($_POST['to_date'])
 		&& strtotime($_POST['to_date'])>=strtotime($_POST['from_date'])){
-		$where_code=" inop_header.trn_cat IN ('0','1') ";
-		$where_code_sub=null;
+		$where_code=" inop_header.trn_cat IN ('0','1') AND inop_header.zid='".$_SESSION['zid']."'";
+		$where_code_sub=" AND inop_details.zid='".$_SESSION['zid']."'";
 		$sales_type=array(
 			'pos'		=>0,
 			'gls'		=>1,
@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && defined('BASEPATH')){
 		if(isset($_POST['sales_type']) && $_POST['sales_type']!=NULL){
 			$where_code.=" AND inop_header.trn_cat='".$sales_type[$_POST['sales_type']]."'";
 		}
-		
+		//$cmncls->dd($where_code);
 		$report_name="prdc_sales";
 		$exporter=new jasper_manager($report_name,"jasper");
 		$prams=array(

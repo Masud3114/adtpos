@@ -27,7 +27,7 @@ $columns = array(
 	
 );
 $where= array(
-	" dcus_type ='0' ",
+	" dcus_type ='0' AND zid ='".$_SESSION['zid']."'",
 );
 echo json_encode(
 	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where )

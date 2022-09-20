@@ -1,7 +1,7 @@
 ﻿					
 					<div class="row clearfix">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="card">
+							<div class="row card">
 								<div class="header" style="padding:20px">
 									<h2 >
 										SALES LIST
@@ -13,7 +13,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="body">
+								<div class="body table-responsive">
 									<table class="table table-bordered table-striped table-hover dataTable" sort="2" sort_type="desc" data="pos_list">
 										<thead>
 											<tr>

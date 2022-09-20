@@ -40,7 +40,7 @@ $columns = array(
 	)
 );
 $where= array(
-	" sales_type='Corp. Sale'",
+	" sales_type='Corp. Sale' AND zid ='".$_SESSION['zid']."'",
 );
 echo json_encode(
 	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns, NULL, $where)

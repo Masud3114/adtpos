@@ -39,7 +39,7 @@ class accounts extends database{
 			'xvoucher'				=>$xvoucher,
 			'prfx_name'				=>'POI-',
 			'xdate'					=>$data['trn_date'],
-			'xref'					=>'POS Sales Voucher ('."MON-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
+			'xref'					=>'POS Sales Voucher ('."-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
 			'autoRef'				=>$data['slno'],
 			'xnarration'			=>'Cash Sales from POS station!',
 			'dent_id'				=>$_SESSION['user_id']
@@ -132,7 +132,7 @@ class accounts extends database{
 			'xvoucher'				=>$xvoucher,
 			'prfx_name'				=>'CIN-',
 			'xdate'					=>$data['trn_date'],
-			'xref'					=>'General / Corporate Sales Voucher('."MON-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
+			'xref'					=>'General / Corporate Sales Voucher('."-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
 			'autoRef'				=>$data['slno'],
 			'xnarration'			=>'General / Corporate Sales !',
 			'dent_id'				=>$_SESSION['user_id']
@@ -244,7 +244,7 @@ class accounts extends database{
 			'xvoucher'				=>$xvoucher,
 			'prfx_name'				=>'IR-',
 			'xdate'					=>$data['trn_date'],
-			'xref'					=>'Inventory Receive Voucher('."MONR-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
+			'xref'					=>'Inventory Receive Voucher('."-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
 			'autoRef'				=>$data['slno'],
 			'xnarration'			=>'Inventory Receive Voucher!',
 			'dent_id'				=>$_SESSION['user_id']
@@ -294,7 +294,7 @@ class accounts extends database{
 			'xvoucher'				=> $xvoucher,
 			'prfx_name'				=> 'IP-',
 			'xdate'					=> $data['trn_date'],
-			'xref'					=> 'Inventory Receive Voucher('."MONP-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
+			'xref'					=> 'Inventory Receive Voucher('."-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
 			'autoRef'				=> $data['slno'],
 			'xnarration'			=> 'Inventory Receive Voucher!',
 			'dent_id'				=> $_SESSION['user_id']
@@ -359,7 +359,7 @@ class accounts extends database{
 			'xvoucher'				=>$xvoucher,
 			'prfx_name'				=>'IS-',
 			'xdate'					=>$data['trn_date'],
-			'xref'					=>'Inventory Issue Voucher('."MONI-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
+			'xref'					=>'Inventory Issue Voucher('."-".DATE('ym',strtotime($data['trn_date'])).$data['slno'].")",
 			'autoRef'				=>$data['slno'],
 			'xnarration'			=>'Inventory Issue Voucher!',
 			'dent_id'				=>$_SESSION['user_id']

@@ -28,7 +28,7 @@ $columns = array(
 	)
 );
 $where= array(
-	" hslno ='".$_POST['dt_prams']."' ",
+	" hslno ='".$_POST['dt_prams']."' AND zid ='".$_SESSION['zid']."' ",
 );
 echo json_encode(
 	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where )

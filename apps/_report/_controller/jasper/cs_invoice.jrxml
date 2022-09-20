@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cs_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cdf99cc4-d45f-4968-a644-4bdd982a14e3">
 	<property name="ireport.zoom" value="1.1269722013523669"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="84"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="root_path" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:/Only for IT/Online Backup/Google Drive/Business_soft/monchobi/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="sales_id" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["D:\\Only for IT\\Online Backup\\Google Drive\\Business_soft\\monchobi\\apps\\_report\\_controller\\jasper\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["D:\\Only for IT\\Online Backup\\Google Drive\\Business_soft\\adt_pos\\apps\\_report\\_controller\\jasper\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="zid" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
  dcmpny_info.dcmpny_num, CONCAT($P{root_path},dcmpny_info.dcmpny_logo) as dcmpny_logo,
@@ -21,10 +22,11 @@
   inop_header.trn_ref, dcus_info.dcus_num, dcus_info.dcus_cod, dcus_info.dcus_adrs, dcus_info.dcus_cprsn, dcus_info.dcus_cprsnmob, dcus_info.dcus_cprsneml,
   SUM(acct_gldetailv.xdebit-acct_gldetailv.xcredit) AS prv_balance
 
-FROM dcmpny_info, inop_header
+FROM inop_header
+  LEFT JOIN dcmpny_info ON inop_header.zid=dcmpny_info.slno
   LEFT JOIN dcus_info ON inop_header.trn_to=dcus_info.dcus_cod
   LEFT JOIN acct_gldetailv ON inop_header.trn_to=acct_gldetailv.acct_code_sub AND (acct_gldetailv.xdate<inop_header.trn_date OR (acct_gldetailv.xdate=inop_header.trn_date AND acct_gldetailv.dent_dt<inop_header.ent_dt))
-WHERE inop_header.slno=$P{sales_id}]]>
+WHERE inop_header.slno=$P{sales_id} AND inop_header.zid=$P{zid}]]>
 	</queryString>
 	<field name="dcmpny_num" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

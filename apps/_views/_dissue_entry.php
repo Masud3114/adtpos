@@ -103,19 +103,21 @@
 													</div>
 												</div>
 											</div>
-											<table class="table table-striped" id="product_table">
-												<thead>
-													<tr>
-														<th>Product Name</th>
-														<th>Quantity</th>
-														<th>Unit</th>
-														<th>Rate</th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
+											<div class="body table-responsive">
+												<table class="table table-striped" id="product_table">
+													<thead>
+														<tr>
+															<th>Product Name</th>
+															<th>Quantity</th>
+															<th>Unit</th>
+															<th>Rate</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
 								</div>

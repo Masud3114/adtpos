@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && defined('BASEPATH')){
 				$header_cap = "Period : (".date('d-M-Y',strtotime($_POST['from_date']))." TO ".date('d-M-Y',strtotime($_POST['from_date'])).")";
 			}
 		}
+		$where_code .=" AND acct_glheader.zid='".$_SESSION['zid']."'";
 		if(isset($_POST['acct_code']) && $_POST['acct_code']!=NULL){
 			$where_code.=" AND acct_gldetailv.acct_code='".$_POST['acct_code']."'";
 		}

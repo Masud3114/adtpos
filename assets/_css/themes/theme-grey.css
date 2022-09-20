@@ -1,36 +1,40 @@
-﻿.theme-grey .navbar {
-  background-color: #9E9E9E; }
+﻿body{
+	background-color: rgb(150 150 150/0.8);
+}
+.theme-grey .navbar {
+  background-color: #1f2937; }
 
 .theme-grey .navbar-brand {
   color: #fff; }
   .theme-grey .navbar-brand:hover {
-    color: #fff; }
+	color: #fff; }
   .theme-grey .navbar-brand:active {
-    color: #fff; }
+	color: #fff; }
   .theme-grey .navbar-brand:focus {
-    color: #fff; }
+	color: #fff; }
 
 .theme-grey .nav > li > a {
   color: #fff; }
   .theme-grey .nav > li > a:hover {
-    background-color: transparent; }
+	background-color: transparent; }
   .theme-grey .nav > li > a:focus {
-    background-color: transparent; }
+	background-color: transparent; }
 
 .theme-grey .nav .open > a {
   background-color: transparent; }
   .theme-grey .nav .open > a:hover {
-    background-color: transparent; }
+	background-color: transparent; }
   .theme-grey .nav .open > a:focus {
-    background-color: transparent; }
+	background-color: transparent; }
 
 .theme-grey .bars {
-  color: #fff; }
-
+  color: #fff; 
+}
 .theme-grey .sidebar .menu .list li.active {
   background-color: transparent; }
   .theme-grey .sidebar .menu .list li.active > :first-child i, .theme-grey .sidebar .menu .list li.active > :first-child span {
-    color: #9E9E9E; }
+	color: #9E9E9E; 
+}
 
 .theme-grey .sidebar .menu .list .toggled {
   background-color: transparent; }
@@ -41,5 +45,5 @@
 .theme-grey .sidebar .legal {
   background-color: #fff; }
   .theme-grey .sidebar .legal .copyright a {
-    color: #9E9E9E !important; }
+	color: #9E9E9E !important; }
 

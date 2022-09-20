@@ -76,6 +76,7 @@
 												<option required value="">--Select Access Code--</option>
 												<option <? if ($pickval[dusr_acscod] == 'admin') {?> selected="selected" <? }?> value="admin">Admin</option>
 												<option <? if ($pickval[dusr_acscod] == 'user') {?> selected="selected" <? }?> value="user">User</option>
+												<option <? if ($pickval[dusr_acscod] == 'cashier') {?> selected="selected" <? }?> value="cashier">Cashier</option>
 											</select>
 											<input type="hidden" name="ppg" value="<? echo $_GET['pg']; ?>" />
 										</div>

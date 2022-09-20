@@ -1,6 +1,7 @@
 <?php
 if(defined('BASEPATH')){
 	session_start();
+	session_regenerate_id();
 	ini_set('html_errors','off');
 	require_once BASEPATH.'/env'.EXT;
 	require_once BASEPATH.'/DB_Class/db_ config'.EXT;
@@ -10,9 +11,11 @@ if(defined('BASEPATH')){
 	require_once BASEPATH.'/asset_class/_dmodule_manage'.EXT;
 	require_once BASEPATH.'/asset_class/_dacctTran'.EXT;
 	require_once BASEPATH.'/asset_class/_dfood_delivery'.EXT;
-	$action =new database();
-	$login= new log_in();
+	$action 	= new database();
+	$cmncls 	= new comncls();
+	$login		= new log_in();
 	if($login->chk_login()===true){
+		
 		if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])//check AJAX Request//
 			&& !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
@@ -50,10 +53,10 @@ if(defined('BASEPATH')){
 					if(is_file($post_path)){
 						include $post_path;
 					}else{
-						require_once BASEPATH.'/common/header'.EXT;
-						require_once BASEPATH.'/common/sidebar'.EXT;
-						include APP_PATH.VIEWS.FILE_PRFX.'error'.EXT;
-						require_once BASEPATH.'/common/footer'.EXT;
+						require_once APP_PATH.'/Templates/main/header'.EXT;
+						require_once APP_PATH.'/Templates/main/sidebar'.EXT;
+						require_once APP_PATH.VIEWS.FILE_PRFX.'error'.EXT;
+						require_once APP_PATH.'/Templates/main/footer'.EXT;
 					}
 				}
 				if ($_GET['pgr']!=NULL){
@@ -64,10 +67,10 @@ if(defined('BASEPATH')){
 						include $post_path;
 					}
 					else{
-						require_once BASEPATH.'/common/header'.EXT;
-						require_once BASEPATH.'/common/sidebar'.EXT;
-						include APP_PATH.VIEWS.FILE_PRFX.'error'.EXT;
-						require_once BASEPATH.'/common/footer'.EXT;
+						require_once APP_PATH.'/Templates/main/header'.EXT;
+						require_once APP_PATH.'/Templates/main/sidebar'.EXT;
+						require_once APP_PATH.VIEWS.FILE_PRFX.'error'.EXT;
+						require_once APP_PATH.'/Templates/main/footer'.EXT;
 					}
 				}
 			}
@@ -83,22 +86,34 @@ if(defined('BASEPATH')){
 					include $load_path;
 				}
 			}else{
-				require_once BASEPATH.'/common/header'.EXT;
-				require_once BASEPATH.'/common/sidebar'.EXT;
-				require_once BASEPATH.'/common/body'.EXT;
-				require_once BASEPATH.'/common/footer'.EXT;
+				require_once APP_PATH.'/Templates/main/header'.EXT;
+				require_once APP_PATH.'/Templates/main/sidebar'.EXT;
+				require_once APP_PATH.'/Templates/main/body'.EXT;
+				require_once APP_PATH.'/Templates/main/footer'.EXT;
 			}
 		}
 	}else{
-		if( $_SERVER['REQUEST_METHOD'] == 'POST'){
-			if (isset($_POST[login])){
+		if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+			if (isset($_POST['login'])){
 				$login->create_login();
 				header("location:index".EXT);
-			}else{
+			}else if(isset($_POST['register'])){
+				$login->create_user();
+				header("location:index".EXT);
+			}
+			else{
 				include APP_PATH.VIEWS.FILE_PRFX.'error'.EXT;
 			}
 		}else{
-			require_once BASEPATH.'/common/_dlogin'.EXT;
+			if(isset($_GET['pg']) && $_GET['pg']==="NewUser"){
+				require_once APP_PATH.'/Templates/auth/header.php';
+				require_once APP_PATH.VIEWS.'register'.EXT;
+				require_once APP_PATH.'/Templates/auth/footer.php';
+			}else{
+				require_once APP_PATH.'/Templates/auth/header.php';
+				require_once APP_PATH.VIEWS.'log_in'.EXT;
+				require_once APP_PATH.'/Templates/auth/footer.php';
+			}
 		}
 	}
 }else{

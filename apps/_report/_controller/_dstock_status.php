@@ -1,6 +1,6 @@
 <?php
 if($_SERVER['REQUEST_METHOD']==='POST' && defined('BASEPATH')){
-	$where_code=null;
+	$where_code= "inop_details.zid='".$_SESSION['zid']."'!!";
 	if(isset($_POST['item_cat'])){
 		$where_code.=" item_info.item_cat IN (".$cmncls->m_implode($_POST['item_cat']).")!!";
 	}

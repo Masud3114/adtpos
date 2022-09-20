@@ -139,7 +139,7 @@
 			FROM inop_details 
 			LEFT JOIN item_info ON inop_details.item_code=item_info.item_code
 			left join viunit_info on item_info.item_unit=viunit_info.slno
-			WHERE hslno='".$_POST['sx_code']."'";
+			WHERE inop_details.hslno='".$_POST['sx_code']."' AND inop_details.zid='".$_SESSION['zid']."'";
 			//echo $prdct_sql;
 			//exit;
 			$prdct_qry=$cmncls->sqlqry($prdct_sql);
@@ -183,8 +183,8 @@
 		if(isset($_POST['add_trn'])){
 			if(!isset($_SESSION['purchase_slno'])){
 				$hslno = $action->getslno('inop_header');
-				$rcvh_sql="INSERT INTO inop_header(slno, trn_type, trn_cat, trn_from, trn_date, trn_ref, trn_desc, ent_id) 
-				VALUES ('".$hslno."','1','4','".$_POST['dsup_cod']."','".$_POST['trn_date']."','".$_POST['trn_ref']."','".$_POST['trn_description']."','".$_SESSION['user_id']."')";
+				$rcvh_sql="INSERT INTO inop_header(slno, zid, trn_type, trn_cat, trn_from, trn_date, trn_ref, trn_desc, ent_id) 
+				VALUES ('".$hslno."','".$_SESSION['zid']."','1','4','".$_POST['dsup_cod']."','".$_POST['trn_date']."','".$_POST['trn_ref']."','".$_POST['trn_description']."','".$_SESSION['user_id']."')";
 				$cmncls->sqlqry($rcvh_sql);
 			}else{
 				$hslno = $_SESSION['purchase_slno'];
@@ -200,12 +200,12 @@
 					$action->delete('inop_details','hslno',$_SESSION['purchase_slno']);
 				}
 			}
-			$rcv_sql="INSERT INTO inop_details(slno,hslno, item_code, item_qty, buy_rate,sale_rate, vat_rate, ent_id) VALUES ";
+			$rcv_sql="INSERT INTO inop_details(slno, zid, hslno, item_code, item_qty, buy_rate,sale_rate, vat_rate, ent_id) VALUES ";
 			$i=0;
 			$slno = $action->getslno_max('inop_details');
 			foreach($_POST['item_code'] as $item_code){
 				$goods_amount+=round(($_POST['item_qty'][$i]*$_POST['item_brate'][$i]),2);
-				$rcv_sqli.="('".$slno."','".$hslno."','".$item_code."','".$_POST['item_qty'][$i]."','".$_POST['item_brate'][$i]."','".$_POST['item_srate'][$i]."','".$_POST['item_vatrate'][$i]."','".$_SESSION['user_id']."'),";
+				$rcv_sqli.="('".$slno."','".$_SESSION['zid']."','".$hslno."','".$item_code."','".$_POST['item_qty'][$i]."','".$_POST['item_brate'][$i]."','".$_POST['item_srate'][$i]."','".$_POST['item_vatrate'][$i]."','".$_SESSION['user_id']."'),";
 				$i++;
 				$slno++;
 			}

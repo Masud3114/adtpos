@@ -50,22 +50,22 @@
 			}
 		}
 	};
-   //Dynamic From Show by class//
-   $(".show_from").click(function(e) {
-	   var data_render_in=$(this).attr("data_disp");
-	   if(data_render_in){
-		   var render_id="#"+data_render_in;
-	   }else{
-		   var render_id='#display_div';
-	   }
-	   target_form=$(this).parents("form:first");
+	//Dynamic From Show by class//
+	$(".show_from").click(function(e) {
+		var data_render_in=$(this).attr("data_disp");
+		if(data_render_in){
+			var render_id="#"+data_render_in;
+		}else{
+			var render_id='#display_div';
+		}
+		target_form=$(this).parents("form:first");
 		$.ajax({
 			type: 'POST',
 			url: 'index.php',
 			data: target_form.serialize() + '&action=' + $(this).attr("name"),
 			dataType: 'json',
 			beforeSend: function() {
-			   $('.page-loader-wrapper').fadeIn();
+				$('.page-loader-wrapper').fadeIn();
 			},
 			success: function(data) {
 				$('.page-loader-wrapper').fadeOut(300, function(){
@@ -207,11 +207,11 @@
 		}
 	});
 	//End Search Button action//
-	$('.ac_massage').fadeIn('slow').delay(3000).fadeOut(500);
+	
 	//Load TinyMCE //
 	if($('textarea.txtedt').length){
 		var s = document.createElement("script");
-		s.src = "plugins/tinymce/tinymce.min.js";
+		s.src = "assets/plugins/tinymce/tinymce.min.js";
 		s.onload = function(e){
 			tinymce.init({
 				selector: "textarea.txtedt",
@@ -249,7 +249,7 @@
 			data: target_form.serialize() + "&&pgr=" + $(this).attr("target")+ "&&action_val=" + $(this).attr("name"),
 			dataType: 'text',
 			beforeSend: function() {
-			   $('.page-loader-wrapper').fadeIn();
+				$('.page-loader-wrapper').fadeIn();
 			},
 			success: function(data) {
 				$('.page-loader-wrapper').fadeOut(300, function(){
@@ -264,13 +264,36 @@
 			}
 		});
 	});
-	//Export From jasper To Defined Formate// 
+	//End Export From jasper To Defined Format//
+	//Business set//
+	$( "#business_cod").change(function() {
+		var business_id=$(this).val();
+		//var post_data="ppg=" + target + "&&"+p_name+"=" + p_value;
+		var post_data="ppg=business/_dbusiness_info&set_business="+business_id;
+		$.ajax({
+			type: 'POST',
+			url: 'index.php',
+			data: post_data,
+			dataType: 'json',
+			beforeSend: function() {
+				return confirm("Are you sure?");
+			},
+			success: function(data) {
+				if(data.status==='success'){
+					//alert(data.message);
+					location.reload();
+				}else{
+					alert(data.message);
+				}
+			}
+		});
+	});
 	//Tab Remember//
 	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 		localStorage.setItem('activeTab', $(e.target).attr('href'));
 	});
 	var activeTab = localStorage.getItem('activeTab');
 	if(activeTab){
-		$('.myTab a[href="' + activeTab + '"]').tab('show');
+		$('#myTab a[href="' + activeTab + '"]').tab('show');
 	}
 });

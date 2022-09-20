@@ -3,8 +3,8 @@ $table = 'dsup_info';
 $primaryKey = 'slno';
 $columns = array(
 	array( 'db' => 'dsup_num',					'dt' => 0),
-	array( 'db' => 'dsup_mobno',				'dt' => 1),
-	array( 'db' => 'dsup_telno',				'dt' => 2),
+	array( 'db' => 'dsup_cprsn',				'dt' => 1),
+	array( 'db' => 'dsup_cprsnmob',				'dt' => 2),
 	array( 'db' => 'dsup_adrs',					'dt' => 3),
 	array(
 			'db'		=> 'dsup_cod',
@@ -26,7 +26,10 @@ $columns = array(
 	)
 	
 );
+$where= array(
+	" zid ='".$_SESSION['zid']."' ",
+);
 echo json_encode(
-	SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where )
 );
 ?>

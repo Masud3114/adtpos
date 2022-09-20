@@ -1,0 +1,13 @@
+{
+    "/assets/dist/js/app.js": "/assets/dist/js/app.js",
+    "/assets/dist/css/app.css": "/assets/dist/css/app.css",
+    "/assets/dist/css/auth/auth.css": "/assets/dist/css/auth/auth.css",
+    "/assets/dist/webfonts/fa-brands-400.ttf": "/assets/dist/webfonts/fa-brands-400.ttf",
+    "/assets/dist/webfonts/fa-brands-400.woff2": "/assets/dist/webfonts/fa-brands-400.woff2",
+    "/assets/dist/webfonts/fa-regular-400.ttf": "/assets/dist/webfonts/fa-regular-400.ttf",
+    "/assets/dist/webfonts/fa-regular-400.woff2": "/assets/dist/webfonts/fa-regular-400.woff2",
+    "/assets/dist/webfonts/fa-solid-900.ttf": "/assets/dist/webfonts/fa-solid-900.ttf",
+    "/assets/dist/webfonts/fa-solid-900.woff2": "/assets/dist/webfonts/fa-solid-900.woff2",
+    "/assets/dist/webfonts/fa-v4compatibility.ttf": "/assets/dist/webfonts/fa-v4compatibility.ttf",
+    "/assets/dist/webfonts/fa-v4compatibility.woff2": "/assets/dist/webfonts/fa-v4compatibility.woff2"
+}

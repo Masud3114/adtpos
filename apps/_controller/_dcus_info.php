@@ -101,8 +101,8 @@ else if(isset($_POST[upload_attach])){
 					$new_name=date('HYmIdis').".".$ext;
 					$name=$path.$f.$new_name;
 					if(move_uploaded_file($_FILES["attach_file"]["tmp_name"][$f],$name)){
-						$query = "INSERT INTO dcus_attach(dcus_cod, file_cap, file_path, dent_id) VALUES 
-						('".$_POST['dcus_cod']."', '".$file_cap."', '".$name."', '".$_SESSION['user_id']."')";
+						$query = "INSERT INTO dcus_attach(dcus_cod, file_cap, file_path, dent_id,zid) VALUES 
+						('".$_POST['dcus_cod']."', '".$file_cap."', '".$name."', '".$_SESSION['user_id']."', '".$_SESSION['zid']."')";
 						$cmncls->sqlqry($query);
 						$count++; // Number of successfully uploaded files
 					}
@@ -124,7 +124,7 @@ else if(isset($_POST[upload_attach])){
 if(isset($_POST[axaj_action_form])){
 	if($_POST[axaj_action_form]=='delete_attachfile'){
 		$pickval = $cmncls->newpikval(dcus_attach,slno,$_POST[selector_id]);
-		$del_sql="delete from dcus_attach where slno='".$_POST[selector_id]."'";
+		$del_sql="delete from dcus_attach where slno='".$_POST[selector_id]."' AND zid='".$_SESSION['zid']."'";
 		$cmncls->sqlqry($del_sql);
 		if(@mysql_affected_rows()>0 && !@mysql_errno()){
 			if(is_file($pickval[file_path])){

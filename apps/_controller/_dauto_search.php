@@ -1,8 +1,7 @@
 <?php
 require_once("../systems/DB_Class/db_ config.php");
 require_once("../systems/asset_class/_dcomn_cls.php");
-if(isset($_GET[qfld]))
-	{	
+if(isset($_GET[qfld])){
 	$_GET[qfld]=@mysql_real_escape_string($_GET[qfld]);
 	$sql_cmd="SELECT demp_info.e_num, demp_info.e_joindt, dxdesig.desig_num, dxdept.dept_num
 	from demp_info
@@ -14,40 +13,38 @@ if(isset($_GET[qfld]))
 
 	echo "Name: ".$emp_info[e_num]."<br />Department: ".$emp_info[dept_num]."<br />Designation: ".$emp_info[desig_num]."<br />Joining Date: ".date('d-M-Y',strtotime($emp_info[e_joindt]));
 	
-	}
+}
 	
-if( $_SERVER['REQUEST_METHOD'] == 'POST')
-	{
-	if($_POST[fld_name]=='dcmpny_cod')
-		{
+if( $_SERVER['REQUEST_METHOD'] == 'POST'){
+	if($_POST[fld_name]=='dcmpny_cod'){
 		$found = array();
 		$value = trim($_POST['term']);
 		$value =@mysql_real_escape_string($value);
-		$sql_res=$cmncls->sqlqry("SELECT dcmpny_cod, dcmpny_num FROM dcmpny_info where dcmpny_num like '%$value%' AND sts='1' order by dcmpny_num ASC LIMIT 15");
-			while($row=@mysql_fetch_array($sql_res))
-				{
-				$found[] = array(
-				"value" => $row[dcmpny_cod], 
-				"label" => $row[dcmpny_cod]."-".$row[dcmpny_num],
-				);
-				}
-		echo json_encode($found);
+		$sql_res=$cmncls->sqlqry("SELECT dcmpny_cod, dcmpny_num FROM dcmpny_info 
+		where dent_id='' AND (dcmpny_num like '%$value%' OR dcmpny_cod like '%$value%') AND sts='1' order by dcmpny_num ASC LIMIT 15");
+		while($row=@mysql_fetch_array($sql_res)){
+			$found[] = array(
+			"value" => $row[dcmpny_cod], 
+			"label" => $row[dcmpny_cod]."-".$row[dcmpny_num],
+			);
 		}
-	else if($_POST[fld_name]=='dcus_cod')
-		{
+		echo json_encode($found);
+	}
+	else if($_POST[fld_name]=='dcus_cod'){
 		$found = array();
 		$value = trim($_POST['term']);
 		$value =@mysql_real_escape_string($value);
-		$sql_res=$cmncls->sqlqry("SELECT dcus_cod, dcus_num FROM dcus_info where dcus_num like '%$value%' AND sts='1' order by dcus_num ASC LIMIT 15");
-			while($row=@mysql_fetch_array($sql_res))
-				{
-				$found[] = array(
-				"value" => $row[dcus_cod], 
-				"label" => $row[dcus_cod]."-".$row[dcus_num],
-				);
-				}
-		echo json_encode($found);
+		$sql_res=$cmncls->sqlqry("SELECT dcus_cod, dcus_num FROM dcus_info 
+		where (dcus_num like '%$value%' OR dcus_cod like '%$value%')
+		AND sts='2' order by dcus_num ASC LIMIT 15");
+		while($row=@mysql_fetch_array($sql_res)){
+			$found[] = array(
+			"value" => $row[dcus_cod], 
+			"label" => $row[dcus_cod]."-".$row[dcus_num],
+			);
 		}
+		echo json_encode($found);
+	}
 	else if($_POST[fld_name]=='dsft_cod')
 		{
 		$found = array();
@@ -462,5 +459,5 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 		echo json_encode($found);
 		}
-	}
+}
 ?>

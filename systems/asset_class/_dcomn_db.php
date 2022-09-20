@@ -56,6 +56,13 @@ class database{
 	public function insert_data($table, $value,$skip_vals=null){
 		if ($this->tableExists($table)) {
 			$value=$this->escap_string($value);
+			if($this->checkZid($table) && $skip_vals[0]!="register" ){
+				if($_SESSION['zid']!=NULL && $_SESSION['zid']!=''){
+					$value['zid']	= $_SESSION['zid'];
+				}else{
+					return "Please setup your Business information!";
+				}
+			}
 			if($skip_vals!=null){
 				foreach($skip_vals as $skip_val){
 					unset($value[$skip_val]);
@@ -71,8 +78,6 @@ class database{
 				$field       = implode(',', $field);
 				$field_value = implode(',', $field_value);
 				$insert_sql  = 'INSERT INTO ' . $table . " (" . $field . ") VALUES (" . $field_value . ")";
-				//echo $insert_sql."<br/>";
-				//exit;
 				@mysql_query($insert_sql);
 				if (!@mysql_errno()) {
 					return true;
@@ -99,8 +104,11 @@ class database{
 				} //$value as $pointer => $data
 				$update_values			= implode(',', $field);
 				if ($whr_cod == NULL) {
-					$whr_cod = "where $s_fld='$svalue'";
-				} //$whr_cod == NULL
+					$whr_cod = " where $s_fld='$svalue'";
+				}
+				if($this->checkZid($table) && $_SESSION['zid']>1){
+					$whr_cod .=" AND zid='".$_SESSION['zid']."'";
+				}
 				$this->qrycmd  = "UPDATE $table SET $update_values $whr_cod";
 				//echo $this->qrycmd;
 				@mysql_query($this->qrycmd);
@@ -183,15 +191,17 @@ class database{
 	
 	public function delete($tbl_num,$tbl_fld=NULL,$sxcode=NULL,$whr_cod=NULL){
 		if($this->tableExists($tbl_num)) {
-			$delete = "DELETE FROM $tbl_num ";
+			$delete = "DELETE FROM ".$tbl_num." ";
 			if($whr_cod==NULL){
-				$delete .= "WHERE $tbl_fld = '$sxcode'";
+				$delete .= " WHERE ".$tbl_fld." = '".$sxcode."'";
 			}
 			else{
-				$delete .= "$whr_cod";
+				$delete .= $whr_cod;
 			}
-			$del = @mysql_query($delete);
-			if($del){
+			if($this->checkZid($tbl_num) && $_SESSION['zid']>1){
+				$delete .=" AND zid='".$_SESSION['zid']."'";
+			}
+			if(@mysql_query($delete)){
 				return true;
 			}
 			else{
@@ -301,11 +311,35 @@ class database{
 			return 1;
 		}
 	}
+	public function checkZid($table){
+		$this->qrycmd = "SELECT information_schema.STATISTICS.TABLE_NAME as TABLENAME
+		FROM information_schema.STATISTICS
+		WHERE STATISTICS.TABLE_SCHEMA='".DB_NAME."'
+		AND STATISTICS.COLUMN_NAME='zid'
+		AND STATISTICS.TABLE_NAME='".$table."'
+		GROUP BY STATISTICS.TABLE_NAME";
+		$this->qryrslt = $this->execute_query($this->qrycmd);
+		if(@mysql_num_rows($this->qryrslt)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	public function execute_query($sql_stmnt){
 		if ($sql_stmnt!=NULL){
 			$this->qryrslt = @mysql_query($sql_stmnt);
 			return $this->qryrslt;
 		}
+	}
+	public function dd($array){
+		echo "<pre>";
+		if(is_array($array)){
+			print_r($array);
+		}else{
+			echo $array;
+		}
+		echo "</pre>";
+		exit;
 	}
 }
 ?>

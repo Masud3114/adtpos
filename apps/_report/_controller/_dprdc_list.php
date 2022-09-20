@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']==='POST' && defined('BASEPATH')){
 	$report_name="product_list";
-	$where_code= " 1 ";
+	$where_code= " i.zid='".$_SESSION['zid']."' ";
 	if(isset($_POST['item_cat'])){
 		$where_code.=" AND vicat_info.slno IN (".$cmncls->m_implode($_POST['item_cat']).")";
 	}

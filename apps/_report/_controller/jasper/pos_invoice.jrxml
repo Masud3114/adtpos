@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cs_invoice" language="groovy" pageWidth="221" pageHeight="842" columnWidth="211" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="14" isIgnorePagination="true" uuid="cdf99cc4-d45f-4968-a644-4bdd982a14e3">
 	<property name="ireport.zoom" value="1.9965000000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="257"/>
+	<property name="ireport.y" value="178"/>
 	<parameter name="root_path" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:/Only for IT/Online Backup/Google Drive/Business_soft/monchobi/"]]></defaultValueExpression>
 	</parameter>
@@ -19,8 +19,8 @@
 	(CASE WHEN inop_header.trn_rcvamount>inop_header.trn_netamount THEN inop_header.trn_netamount ELSE inop_header.trn_rcvamount END) AS trn_rcvamount,
 	inop_header.trn_ref, dcus_info.dcus_num, dcus_info.dcus_cod, dcus_info.dcus_adrs, dcus_info.dcus_cprsn, dcus_info.dcus_cprsnmob, dcus_info.dcus_cprsneml
 
-
-FROM dcmpny_info, inop_header
+FROM  inop_header
+LEFT JOIN dcmpny_info ON inop_header.zid=dcmpny_info.slno
 LEFT JOIN dcus_info ON inop_header.trn_to=dcus_info.dcus_cod
 WHERE inop_header.slno=$P{sales_id}]]>
 	</queryString>

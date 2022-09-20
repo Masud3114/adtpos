@@ -10,7 +10,10 @@ $columns = array(
 	array( 'db' => 'wh_store',				'dt' => 5),
 	array( 'db' => 'ent_info',				'dt' => 6)
 );
+$where= array(
+	" zid ='".$_SESSION['zid']."' ",
+);
 echo json_encode(
-	SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where )
 );
 ?>

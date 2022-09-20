@@ -2,7 +2,14 @@
 if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])//check AJAX Request//
 && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) 
 && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-	
+	if(isset($_POST['set_business'])){
+		if($_SESSION['user_id']==='USER-000001'){
+			$_SESSION['zid']=$_POST['set_business'];
+			echo json_encode([status	=>'success',message	=>'Successfully set business!']);
+		}else{
+			echo json_encode([status	=>'error',message	=>'Unable to set business!']);
+		}
+	}
 }else if($_SERVER['REQUEST_METHOD']=='POST'){
 	if(isset($_POST['dcmpny_ad'])){
 		$_POST['slno'] = $action->getslno('dcmpny_info');
@@ -20,8 +27,11 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])//check AJAX Request//
 		//end image code start//
 		$adsts=$action->insert_data('dcmpny_info',$_POST,$skip_valus);
 		if ($adsts == 1){
-			$msg = "Successfully Add!";
-			$clor = green;
+			if($action->update_data('dusr_info',['zid'	=>$_POST['slno']],NULL,'dusr_id',$_SESSION['user_id'])){
+				$_SESSION['zid'] = $_POST['slno'];
+				$msg = "Successfully Add!";
+				$clor = green;
+			}
 		}else{
 			unlink($_POST['dcus_logo']);
 			$msg = $adsts;

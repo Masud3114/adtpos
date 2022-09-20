@@ -14,7 +14,8 @@
 		<![CDATA[SELECT dcmpny_info.dcmpny_num, dcmpny_info.dcmpny_logo,
 dcmpny_info.dcmpny_adrs,
 acct_vou_prfx.prfx_desc, acct_glheader.*
-FROM dcmpny_info, acct_glheader
+FROM acct_glheader
+LEFT JOIN dcmpny_info ON acct_glheader.zid=dcmpny_info.slno
 LEFT JOIN acct_vou_prfx ON acct_glheader.prfx_name=acct_vou_prfx.prfx_name
 WHERE acct_glheader.slno=$P{svid}]]>
 	</queryString>
@@ -33,6 +34,9 @@ WHERE acct_glheader.slno=$P{svid}]]>
 	<field name="slno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="zid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="xvoucher" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -43,6 +47,9 @@ WHERE acct_glheader.slno=$P{svid}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="xref" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="autoRef" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="xnarration" class="java.lang.String">
@@ -92,7 +99,7 @@ WHERE acct_glheader.slno=$P{svid}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{prfx_desc}+" - " + $F{xvoucher}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{xvoucher}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="77" width="555" height="1" uuid="bb99af7e-62fa-45e0-8a4e-f300335367dd"/>

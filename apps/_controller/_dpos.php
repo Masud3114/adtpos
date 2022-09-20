@@ -175,7 +175,7 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 			LEFT JOIN item_info ON inop_details.item_code=item_info.item_code
 			LEFT JOIN inop_balance ON inop_details.item_code=inop_balance.item_code
 			LEFT JOIN viunit_info ON item_info.item_unit=viunit_info.slno
-			WHERE inop_details.hslno='".$_POST['sx_code']."'";
+			WHERE inop_details.hslno='".$_POST['sx_code']."' AND inop_details.zid='".$_SESSION['zid']."' ";
 			$item_qry=$cmncls->sqlqry($item_sql);
 
 			if(@mysql_num_rows($item_qry)>0){
@@ -433,17 +433,20 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 			}
 			if(!isset($_SESSION['pos_slno'])){
 				$hslno = $action->getslno('inop_header');
-				$shead_sql="INSERT INTO inop_header(slno, trn_type, trn_cat, trn_to, trn_mobile_no, trn_date, trn_amount,
+				if($_POST[trn_cash]>$_POST[trn_net_pay]){
+					$_POST['trn_cash']=$_POST['trn_net_pay'];
+				}
+				$shead_sql="INSERT INTO inop_header(slno, zid, trn_type, trn_cat, trn_to, trn_mobile_no, trn_date, trn_amount,
 				trn_disc, trn_vat, trn_netamount, trn_ptype, trn_rcvamount, trn_ref, trn_desc, ent_id)
-				VALUES('".$hslno."','2','0','".$_POST['dcus_cod']."','".$_POST['trn_mobile_no']."','".$_POST['trn_date']."','".$_POST['trn_sub_total']."',
+				VALUES('".$hslno."','".$_SESSION['zid']."','2','0','".$_POST['dcus_cod']."','".$_POST['trn_mobile_no']."','".$_POST['trn_date']."','".$_POST['trn_sub_total']."',
 				'".$_POST['trn_discount']."','".$_POST['trn_vat_amnt']."','".$_POST['trn_net_pay']."','".$_POST['trn_ptype']."',
 				'".$_POST['trn_cash']."','".$_POST['cus_mob']."','POS sales','".$_SESSION['user_id']."')";
 				$cmncls->sqlqry($shead_sql);
 				if(!@mysql_errno()){
-					$sdetail_sql="INSERT INTO inop_details(hslno, item_code, item_qty, sale_rate, buy_rate, disc_rate, vat_rate, ent_id) VALUES ";
+					$sdetail_sql="INSERT INTO inop_details(hslno, zid, item_code, item_qty, sale_rate, buy_rate, disc_rate, vat_rate, ent_id) VALUES ";
 					foreach($_SESSION['item_row'] as $item_info){
 						$cost_goods+=round(($item_info['item_brate']*$item_info['item_qty']),2);
-						$sdetail_sqli.="('".$hslno."','".$item_info['item_code']."','".$item_info['item_qty']."','".$item_info['item_srate']."','".$item_info['item_brate']."','".$item_info['item_discount']."','".$item_info['item_vatrate']."','".$_SESSION['user_id']."'),";
+						$sdetail_sqli.="('".$hslno."','".$_SESSION['zid']."','".$item_info['item_code']."','".$item_info['item_qty']."','".$item_info['item_srate']."','".$item_info['item_brate']."','".$item_info['item_discount']."','".$item_info['item_vatrate']."','".$_SESSION['user_id']."'),";
 					}
 					if($sdetail_sqli!=NULL){
 						$sdetail_sql.=substr($sdetail_sqli, 0, -1);
@@ -484,6 +487,9 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 					$type="error";
 				}
 			}else{
+				if($_POST[trn_cash]>$_POST[trn_net_pay]){
+					$_POST['trn_cash']=$_POST['trn_net_pay'];
+				}
 				$hupdt_sql="UPDATE inop_header SET 
 				trn_mobile_no='".$_POST['trn_mobile_no']."',
 				trn_amount='".$_POST['trn_sub_total']."',
@@ -498,10 +504,10 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 				$cmncls->sqlqry($hupdt_sql);
 				if(!@mysql_errno()){
 					$cmncls->delete('inop_details','hslno',$_SESSION['pos_slno']);
-					$sdetail_sql="INSERT INTO inop_details(hslno, item_code, item_qty, sale_rate,buy_rate, disc_rate, vat_rate, ent_id) VALUES ";
+					$sdetail_sql="INSERT INTO inop_details(hslno, zid, item_code, item_qty, sale_rate,buy_rate, disc_rate, vat_rate, ent_id) VALUES ";
 					foreach($_SESSION['item_row'] as $item_info){
 						$cost_goods+=round(($item_info['item_brate']*$item_info['item_qty']),2);
-						$sdetail_sqli.="('".$_SESSION['pos_slno']."','".$item_info['item_code']."','".$item_info['item_qty']."','".$item_info['item_srate']."','".$item_info['item_brate']."','".$item_info['item_discount']."','".$item_info['item_vatrate']."','".$_SESSION['user_id']."'),";
+						$sdetail_sqli.="('".$_SESSION['pos_slno']."','".$_SESSION['zid']."','".$item_info['item_code']."','".$item_info['item_qty']."','".$item_info['item_srate']."','".$item_info['item_brate']."','".$item_info['item_discount']."','".$item_info['item_vatrate']."','".$_SESSION['user_id']."'),";
 					}
 					if($sdetail_sqli!=NULL){
 						$sdetail_sql.=substr($sdetail_sqli, 0, -1);

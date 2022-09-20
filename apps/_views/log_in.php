@@ -1,40 +1,48 @@
-<html>
-<body>
-<div class="row">
-	<div class="col-md-4 col-md-offset-4">
-		<div class="well">
-			<div align="center"><img src="_img/axskkd0.png"/><br /></div>
-			<h3 style="text-align:center;">Login Information</h3>
-			<form method="post" action="index.php" class="form-horizontal">
-				<div class="form-group">
-					<label for="Username" class="col-md-3 control-label">User-name </label>
-					<div class="col-md-8">
-						<input class="form-control" id="Username" type="text" name="user" value="" placeholder="Username">
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="passd" class="col-md-3 control-label">Password</label>
-					<div class="col-md-8">
-						<input class="form-control" id="passd" type="password" name="passd" value="" placeholder="Password">
-						<div class="checkbox">
-							<label>
-							<input type="checkbox">  Remember  Me
-							</label>
+			<div class="login-box">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header bg-blue-grey align-center">
+							<h1><?=APP_NAME; ?></h1>
+							<small>Tech Inside</small>
+						</div>
+						<div class="body">
+							<form id="sign_in" method="POST">
+								<div class="msg"><h3>Sign in to start your session</h3></div>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">person</i>
+									</span>
+									<div class="form-line">
+										<input type="text" class="form-control" name="user" placeholder="Username" required autofocus>
+									</div>
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">lock</i>
+									</span>
+									<div class="form-line">
+										<input type="password" class="form-control" name="passd" placeholder="Password" required>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-8 p-t-5">
+										<input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+										<label for="rememberme">Remember Me</label>
+									</div>
+									<div class="col-xs-4">
+										<input type="submit"  class="btn btn-block bg-pink waves-effect" name="login" value="SIGN IN">
+									</div>
+								</div>
+								<div class="row m-t-15 m-b--20">
+									<div class="col-xs-6 align-left">
+										<a href="?pg=NewUser">Register Now!</a>
+									</div>
+									<div class="col-xs-6 align-right">
+										<a href="#">Forgot Password?</a>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-md-8 col-md-offset-3">
-					 <input type="submit"  class="btn btn-primary" name="login" value="Login">
-					</div>
-				 </div>
-				<div class="login-help">
-				  <p>Forgot your password? <a href="#">Click here to reset it</a>.</p>
-			  </div>
-			</form>
-		</div>
-	</div>
-</div>
-</body>
-</html>
+			</div>

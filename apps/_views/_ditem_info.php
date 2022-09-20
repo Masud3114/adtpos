@@ -16,7 +16,8 @@
 					vicat_info.slno as item_cat,vicat_info.pram_name as item_catc,
 					vitype_info.slno as item_type,vitype_info.pram_name as item_typec,
 					vibrand_info.slno as item_brand,vibrand_info.pram_name as item_brandc,
-					viunit_info.slno as item_unit,viunit_info.pram_name as item_unitc
+					viunit_info.slno as item_unit,viunit_info.pram_name as item_unitc,
+					visize_info.slno as item_size,visize_info.pram_name as item_sizec
 					from item_info
 					left join vistore_info on item_info.item_store=vistore_info.slno
 					left join vicat_info on item_info.item_cat=vicat_info.slno
@@ -24,6 +25,7 @@
 					left join vibrand_info on item_info.item_brand=vibrand_info.slno
 					left join vicolor_info on item_info.item_color=vicolor_info.slno
 					left join viunit_info on item_info.item_unit=viunit_info.slno
+					left join visize_info on item_info.item_size=visize_info.slno
 					where item_info.slno='".$sx_code."'
 					";
 					//echo $pick_sql;
@@ -129,16 +131,7 @@
 									<div class="input-group">
 										<label class="form-label">Size</label>
 										<select required style="width:100%;" class="form-control select2auto" ppg="s2search" name="item_size">
-											<?php 
-												if($pickval['item_size']){
-													$color=explode(',',$pickval['item_size']);
-													$item_size="'".implode("','",$color)."'";
-													$color_qry=$cmncls->sqlqry("select * from visize_info where slno in (".$item_size.") order by slno");
-													while($data=@mysql_fetch_array($color_qry)){
-														echo '<option value="'.$data['slno'].'" selected="selected">'.$data['pram_name'].'</option>'; 
-													}
-												}
-											?>
+											<?php echo $pickval['item_size']? ' <option value="'.$pickval['item_size'].'" selected="selected">'.$pickval['item_sizec'].'</option>': ''; ?>
 										</select>
 									</div>
 								</div>

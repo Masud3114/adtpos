@@ -10,7 +10,7 @@
 						FROM 
 						inop_header t1
 						LEFT JOIN dcus_info ON t1.trn_to=dcus_info.dcus_cod
-						WHERE t1.trn_cat=0 AND t1.slno='".@mysql_real_escape_string($_GET['sx_code'])."'";
+						WHERE t1.trn_cat=0 AND t1.zid='".$_SESSION['zid']."' AND t1.slno='".@mysql_real_escape_string($_GET['sx_code'])."'";
 						$header_data=$cmncls->newpikval(null,null,null,$sx_sql);
 						$_SESSION['pos_slno']=$header_data['slno'];
 					}

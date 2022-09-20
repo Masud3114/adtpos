@@ -1,5 +1,9 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST'){
+	if(!isset($_POST['admin'])){ $_POST['admin']=0; }
+	if(!isset($_POST['user'])){ $_POST['user']=0; }
+	if(!isset($_POST['cashier'])){ $_POST['cashier']=0; }
+
 	if(isset($_POST['dmodule_ad'])){
 		$_POST['slno'] 		= $action->getslno('usystem_module');
 		$_POST['dent_id'] 	= $_SESSION['user_id'];

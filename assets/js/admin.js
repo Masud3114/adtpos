@@ -51,7 +51,7 @@ $.AdminBSB.leftSideBar = {
 		var _this = this;
 		var $body = $('body');
 		var $overlay = $('.overlay');
-
+		$( "li.active" ).parents('li').addClass("active"); //Custom change for expand activate sidebar menu toggled//
 		//Close sidebar
 		$(window).click(function (e) {
 			var $target = $(e.target);
@@ -70,7 +70,6 @@ $.AdminBSB.leftSideBar = {
 		//When page load
 		$.each($('.menu .list li.active'), function (i, val) {
 			var $activeAnchors = $(val).find('a:eq(0)');
-
 			$activeAnchors.addClass('toggled');
 			$activeAnchors.next().show();
 		});
@@ -96,11 +95,11 @@ $.AdminBSB.leftSideBar = {
 		});
 
 		//Set menu height
-		_this.setMenuHeight();
-		//_this.checkStatuForResize(true);
+		_this.setMenuHeight(true);
+		_this.checkStatusForResize(true);
 		$(window).resize(function () {
-			_this.setMenuHeight();
-			//_this.checkStatuForResize(false);
+			_this.setMenuHeight(false);
+			_this.checkStatusForResize(false);
 		});
 
 		//Set Waves
@@ -113,6 +112,11 @@ $.AdminBSB.leftSideBar = {
 			var height = ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').innerHeight()));
 			var $el = $('.list');
 
+			if (!isFirstTime) {
+				$el.slimscroll({
+					destroy: true
+				});
+			}
 			$el.slimscroll({
 				height: height + "px",
 				color: configs.scrollColor,
@@ -124,12 +128,15 @@ $.AdminBSB.leftSideBar = {
 
 			//Scroll active menu item when page load, if option set = true
 			if ($.AdminBSB.options.leftSideBar.scrollActiveItemWhenPageLoad) {
-				var activeItemOffsetTop = $('.menu .list li.active')[0].offsetTop
-				if (activeItemOffsetTop > 150) $el.slimscroll({ scrollTo: activeItemOffsetTop + 'px' });
+				var item = $('.menu .list li.active')[0];
+				if (item) {
+					var activeItemOffsetTop = item.offsetTop;
+					if (activeItemOffsetTop > 150) $el.slimscroll({ scrollTo: activeItemOffsetTop + 'px' });
+				}
 			}
 		}
 	},
-	checkStatuForResize: function (firstTime) {
+	checkStatusForResize: function (firstTime) {
 		var $body = $('body');
 		var $openCloseBar = $('.navbar .navbar-header .bars');
 		var width = $body.width();
@@ -259,14 +266,15 @@ $.AdminBSB.navbar = {
 *  
 */
 $.AdminBSB.input = {
-	activate: function () {
+	activate: function ($parentSelector) {
+		$parentSelector = $parentSelector || $('body');
 		//On focus event
-		$('.form-control').focus(function () {
-			$(this).parent().addClass('focused');
+		$parentSelector.find('.form-control').focus(function () {
+			$(this).closest('.form-line').addClass('focused');
 		});
 
 		//On focusout event
-		$('.form-control').focusout(function () {
+		$parentSelector.find('.form-control').focusout(function () {
 			var $this = $(this);
 			if ($this.parents('.form-group').hasClass('form-float')) {
 				if ($this.val() == '') { $this.parents('.form-line').removeClass('focused'); }
@@ -277,12 +285,12 @@ $.AdminBSB.input = {
 		});
 
 		//On label click
-		$('body').on('click', '.form-float .form-line .form-label', function () {
+		$parentSelector.on('click', '.form-float .form-line .form-label', function () {
 			$(this).parent().find('input').focus();
 		});
 
 		//Not blank form
-		$('.form-control').each(function () {
+		$parentSelector.find('.form-control').each(function () {
 			if ($(this).val() !== '') {
 				$(this).parents('.form-line').addClass('focused');
 			}
@@ -537,4 +545,5 @@ $(function () {
 	$.AdminBSB.select.activate();
 	$.AdminBSB.search.activate();
 	setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+	///
 });

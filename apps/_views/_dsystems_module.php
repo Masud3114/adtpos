@@ -77,6 +77,19 @@
 											<label class="form-label">Link Serial</label>
 										</div>
 									</div>
+									<div class="form-group form-float">
+										<div class="demo-switch">
+											<div class="switch">
+												<label>Admin<input type="checkbox" name="admin" value="1" <?php if($pickval['admin']!=NULL && $pickval['admin']=="1"){ ?>checked<?php } ?> ><span class="lever switch-col-red"></span></label>
+											</div>
+											<div class="switch">
+												<label>User<input type="checkbox" name="user" value="1"  <?php if($pickval['user']!=NULL && $pickval['user']=="1"){ ?>checked<?php } ?> ><span class="lever switch-col-red"></span></label>
+											</div>
+											<div class="switch">
+												<label>Cashier<input type="checkbox" name="cashier" value="1"  <?php if($pickval['cashier']!=NULL && $pickval['cashier']=="1"){ ?>checked<?php } ?> ><span class="lever switch-col-red"></span></label>
+											</div>
+										</div>
+									</div>
 									<?php 
 									if($pickval['dent_dt']!=NULL || $pickval['dent_id']!=NULL){ ?>
 									<div class="form-group">

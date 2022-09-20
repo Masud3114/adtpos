@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	form input[type=submit],form input[type=button],form input[type=file],form a,.lst td a {
+		@apply inline-block px-4 py-1.5 bg-slate-800 text-white font-medium text-sm font-semibold leading-tight uppercase rounded shadow-md hover:bg-yellow-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out cursor-pointer !important;
+	}
+	main{
+		@apply bg-gray-800 !important;
+	}
+	.entform{
+		min-height: calc(100vh - 201px) !important;
+	}
+	.container {
+		min-height: calc(100vh - 161px) !important;
+	}
+	.entform,.tabcontents{
+		@apply bg-gray-300 text-base !important;
+	}
+	.tabcontents input,select{
+		@apply text-gray-800 !important;
+	}
+	.tabcontents table{
+		@apply text-base !important;
+	}
+	ul.tabs{
+		@apply bg-gradient-to-b from-slate-900 to-gray-500 !important;
+	}
+	table.dataTable{
+		@apply text-black !important;
+	}
+	table.dataTable thead{
+		@apply bg-gradient-to-b from-slate-900 to-gray-500 !important;
+	}
+	table.dataTable tfoot{
+		@apply bg-gradient-to-t from-gray-900 to-slate-500 !important;
+	}
+	table.dataTable thead, tfoot{
+		@apply text-white !important;
+	}
+	ul.tabs{
+		@apply p-0 text-white !important;
+	}
+	ul.tabs a{
+		@apply font-bold uppercase !important;
+	}
+	ul.tabs .selected a{
+		@apply text-gray-800 bg-gray-300 !important;
+	}
+	table.lst, table.dataTable td{
+		@apply text-black !important;
+	}
+	ul.tabs li a{
+		@apply text-gray-200 !important;
+	}
+}

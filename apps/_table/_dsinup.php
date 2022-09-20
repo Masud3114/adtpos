@@ -26,7 +26,10 @@ $columns = array(
 	)
 	
 );
+$where= array(
+	" zid ='".$_SESSION['zid']."' ",
+);
 echo json_encode(
-	SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where )
 );
 ?>

@@ -10,7 +10,7 @@
 										<!--<a href="?pg=pos_entry" class="btn btn-primary waves-effect">NEW</a>-->
 									</ul>
 								</div>
-								<div class="body">
+								<div class="body table-responsive">
 									<table class="table table-bordered table-striped table-hover dataTable" data="inventory_list">
 										<thead>
 											<tr>

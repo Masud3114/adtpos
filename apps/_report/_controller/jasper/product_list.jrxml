@@ -10,12 +10,13 @@
 		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT c.dcmpny_num, c.dcmpny_logo,
-c.dcmpny_adrs,i.item_name, i.item_model, i.bar_cod,
+		<![CDATA[SELECT dcmpny_info.dcmpny_num, dcmpny_info.dcmpny_logo,
+dcmpny_info.dcmpny_adrs,i.item_name, i.item_model, i.bar_cod,
 vibrand_info.pram_name AS brand_name,vicat_info.pram_name AS category_name,
 vistore_info.pram_name AS wh_name,vitype_info.pram_name AS type_name,
 viunit_info.pram_name AS unit_name
-FROM dcmpny_info c, item_info i
+FROM item_info i
+LEFT JOIN dcmpny_info ON i.zid=dcmpny_info.slno
 LEFT JOIN vibrand_info ON i.item_brand=vibrand_info.slno
 LEFT JOIN vicat_info ON i.item_cat=vicat_info.slno
 LEFT JOIN vistore_info ON i.item_store=vistore_info.slno

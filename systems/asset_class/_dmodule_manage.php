@@ -7,6 +7,8 @@ class module_manage extends comncls{
 					url_icon
 					FROM usystem_module
 					where sts = '1' and user_id='".$by_user."'
+					AND (access_cod='".$_SESSION['user_id']."' OR access_cod IS NULL)
+					AND ".$_SESSION['access_code']."='1'
 					ORDER BY parent_slno, index_slno";
 		$sql_query=$this->sqlqry($sql_cmd);
 		if(!@mysql_errno()){

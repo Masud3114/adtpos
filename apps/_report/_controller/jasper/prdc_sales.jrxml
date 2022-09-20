@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prdc_sales" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="25e2e57d-897d-425f-ad92-2e0554ed3f9b">
 	<property name="ireport.zoom" value="1.3636363636363635"/>
-	<property name="ireport.x" value="11"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="root_path" class="java.lang.String">
 		<defaultValueExpression><![CDATA["D:\\Only for IT\\Online Backup\\Google Drive\\Business_soft\\monchobi\\"]]></defaultValueExpression>
@@ -24,7 +24,8 @@ inop_header.trn_date,inop_header.trn_amount,
 inop_header.trn_disc,inop_header.trn_vat,
 inop_header.trn_netamount,inop_header.trn_rcvamount,
 inop_header.trn_ptype
-FROM dcmpny_info,inop_header
+FROM inop_header
+LEFT JOIN dcmpny_info ON inop_header.zid=dcmpny_info.slno
 LEFT JOIN dcus_info ON inop_header.trn_to=dcus_info.dcus_cod
 WHERE $P!{where_code}]]>
 	</queryString>

@@ -116,7 +116,7 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 		FROM inop_details 
 		LEFT JOIN item_info ON inop_details.item_code=item_info.item_code
 		left join viunit_info on item_info.item_unit=viunit_info.slno
-		WHERE hslno='".$_POST['sx_code']."'";
+		WHERE hslno='".$_POST['sx_code']."' AND zid='".$_SESSION['zid']."' ";
 		$prdct_qry=$cmncls->sqlqry($prdct_sql);
 
 		if(@mysql_num_rows($prdct_qry)>0){
@@ -154,11 +154,11 @@ if(strtolower($_SERVER['REQUEST_METHOD']) == 'post' //Check Request Method is PO
 	}
 	echo json_encode($rtn_data);
 } else{
-if(isset($_POST['add_trn'])){
+	if(isset($_POST['add_trn'])){
 		if(!isset($_SESSION['issue_slno'])){
 			$hslno = $action->getslno('inop_header');
-			$rcvh_sql="INSERT INTO inop_header(slno, trn_type, trn_cat, trn_to, trn_date, trn_ref, trn_desc, ent_id) 
-			VALUES ('".$hslno."','2','3','".$_POST['dcus_cod']."','".$_POST['trn_date']."','".$_POST['trn_ref']."','".$_POST['trn_description']."','".$_SESSION['user_id']."')";
+			$rcvh_sql="INSERT INTO inop_header(slno, zid, trn_type, trn_cat, trn_to, trn_date, trn_ref, trn_desc, ent_id) 
+			VALUES ('".$hslno."','".$_SESSION['zid']."','2','3','".$_POST['dcus_cod']."','".$_POST['trn_date']."','".$_POST['trn_ref']."','".$_POST['trn_description']."','".$_SESSION['user_id']."')";
 			$cmncls->sqlqry($rcvh_sql);
 		}else{
 			$hslno = $_SESSION['issue_slno'];
@@ -174,13 +174,13 @@ if(isset($_POST['add_trn'])){
 				$action->delete('inop_details','hslno',$_SESSION['issue_slno']);
 			}
 		}
-		$issue_sql="INSERT INTO inop_details(slno, hslno, item_code, item_qty, sale_rate, vat_rate, ent_id) VALUES ";
+		$issue_sql="INSERT INTO inop_details(slno, zid, hslno, item_code, item_qty, sale_rate, vat_rate, ent_id) VALUES ";
 		$i=0;
 		$slno = $action->getslno_max('inop_details');
 		foreach($_POST['item_code'] as $item_code){
 			$item_info=$cmncls->newpikval('item_info','item_code',$item_code);
 			$cost_goods=round(($item_info['item_brate']*$_POST['item_qty'][$i]),2);
-			$issue_sqli.="('".$slno."','".$hslno."','".$item_code."','".$_POST['item_qty'][$i]."','".$_POST['sale_rate'][$i]."','".$_POST['item_vatrate'][$i]."','".$_SESSION['user_id']."'),";
+			$issue_sqli.="('".$slno."','".$_SESSION['zid']."','".$hslno."','".$item_code."','".$_POST['item_qty'][$i]."','".$_POST['sale_rate'][$i]."','".$_POST['item_vatrate'][$i]."','".$_SESSION['user_id']."'),";
 			$i++;
 			$slno++;
 		}

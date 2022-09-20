@@ -1,38 +1,38 @@
+<?php
+use Adt\apps\_model\Business;
+use Adt\apps\_model\Users;
+$business	= new Business();
+$users	= new Users();
+$business_info = $business->get_authenticate($_SESSION['user_id']);
+$user_info = $users->get($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-		<title>Welcome To <?php echo APP_NAME; ?> | Maintenance By Part One Technology | Designed & Develop By Advance Design & Technology | </title>
+		<title>Welcome To <?php echo APP_NAME; ?> | <?=SERVICE_PROVIDER;?>| </title>
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="assets/_img/site_logo.png" type="image/png">
-		<link rel="icon" href="assets/_img/site_logo.png" type="image/png" >
-		<!-- Jquery Core Js -->
-		<script src="assets/plugins/jquery/jquery.min.js"></script>
-		<script type="text/javascript">
-		$(function () {
-			//active menu//
-			$( "li.active" ).parents('li').addClass("active");
-		});
-		</script>
-		<!-- Bootstrap Core Js -->
-		<script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
+		<link rel="shortcut icon" href="<?=$business_info['dcmpny_logo']?>" type="image/png">
+		<!-- Jquery Core Js
+		<script src="assets/plugins/jquery/jquery.min.js"></script> -->
+		<script src="assets/AdminBSBMaterialDesign-master/plugins/jquery/jquery.min.js"></script>
 		<!-- Google Fonts -->
-		<link href="assets/plugins/google_font/Roboto/Roboto.css" rel="stylesheet" type="text/css">
-		<link href="assets/plugins/google_font/Material Icons/MaterialIcons.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 		<!-- Bootstrap Core Css -->
-		<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Bootstrap Select Css -->
-		<link href="assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 		<!-- Waves Effect Css -->
-		<link href="assets/plugins/node-waves/waves.css" rel="stylesheet" />
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/node-waves/waves.css" rel="stylesheet" />
 		<!-- Animation Css -->
-		<link href="assets/plugins/animate-css/animate.css" rel="stylesheet" />
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/animate-css/animate.css" rel="stylesheet" />
 		<!-- font-awesome Css -->
-		<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 		<!-- Sweetalert Css -->
-		<link href="assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+		<link href="assets/AdminBSBMaterialDesign-master/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 		<!---flatpickr-->
 		<link href="assets/plugins/flatpickr/flatpickr.min.css" rel="stylesheet">
 		<!-- Select2 Css -->
@@ -41,18 +41,11 @@
 		<link href="assets/plugins/select2/theme/pmd-select2.css" rel="stylesheet">
 		<!--Datatable-->
 		<link href="assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-		<!-- Morris Chart Css
-		<link href="plugins/morrisjs/morris.css" rel="stylesheet" />-->
-		<!--jquery-ui
-		<link href="jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
-		<link href="jquery-ui/jquery-ui.theme.css" rel="stylesheet" type="text/css" />-->
 		<!-- Custom Css -->
 		<link href="assets/_css/style.css" rel="stylesheet">
-		<!-- MAYA Themes-->
-		<link href="assets/_css/themes/theme-lime.css" rel="stylesheet" />
-		
+		<link href="assets/AdminBSBMaterialDesign-master/css/themes/all-themes.css" rel="stylesheet" />
 	</head>
-	<body class="theme-lime ls-closed">
+	<body class="theme-blue-grey">
 		<!-- Page Loader -->
 		<div class="page-loader-wrapper">
 			<div class="loader">
@@ -73,20 +66,37 @@
 		<!-- Overlay For Sidebars -->
 		<div class="overlay"></div>
 		<!-- #END# Overlay For Sidebars -->
+		<!-- Search Bar -->
+		<div class="search-bar">
+			<div class="search-icon">
+				<i class="material-icons">search</i>
+			</div>
+			<input type="text" placeholder="START TYPING...">
+			<div class="close-search">
+				<i class="material-icons">close</i>
+			</div>
+		</div>
+		<!-- #END# Search Bar -->
 		<!-- Top Bar -->
 		<nav class="navbar">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
 					<a href="javascript:void(0);" class="bars"></a>
-					<a class="navbar-brand" href="index.php">
-						<span><i class="material-icons">home</i></span>
+					<a href="/" class="nav-header-brand waves-effect waves-cyan hover-expand-effect text-white">
+						<span style="color:#fff; font-size:3rem; font-weight:bold; padding-left:10px;">
+							<img class="img img-fluid" style="max-height:50px;"  src="<?=$business_info['dcmpny_logo']?>">
+							<span class="hidden-sm hidden-xs"><?=$business_info['dcmpny_num']?></span>
+						</span>
 					</a>
-					<img style="width:120px;" class="img img-fluid" src="<?php echo $cmp_info['dcmpny_logo']; ?>">
 				</div>
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="pull-right"><a href="index.php?sts=logout" class="js-right-sidebar" data-close="true" data-toggle="tooltip" title="Logout!"><i class="material-icons">power_settings_new</i></a></li>
+						<li>
+							<ul class="nav navbar-nav navbar-right">
+								<li class="pull-right"><a href="index.php?sts=logout" class="js-right-sidebar" data-close="true" data-toggle="tooltip" title="Logout!"><i class="material-icons">power_settings_new</i></a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>

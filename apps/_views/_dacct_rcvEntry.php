@@ -22,13 +22,13 @@
 					$pickval = $cmncls->newpikval('','','',$header_sql); 
 					?>
 					<div class="row">
-						<div class="col-md-12">
-							<div class="row card">
+						<div class="card">
+							<div class="body">
 								<div class="header">
 									<center><h3>Receive Voucher Entry</h3></center>
 								</div>
 								<div class="body">
-									<ul class="nav nav-tabs myTab" role="tablist">
+									<ul class="nav nav-tabs" role="tablist" id="myTab">
 										<li role="presentation" class="active">
 											<a class="waves-effect" href="#acct_glheader" data-toggle="tab">
 												<i class="material-icons">developer_board</i> Voucher Head
@@ -52,7 +52,7 @@
 										}
 										?>
 									</ul>
-									<div class="tab-content">
+									<div class="tab-content row" id="myTabContent">
 										<div role="tabpanel" class="tab-pane fade in active" id="acct_glheader">
 											<div class="col-md-4 card">
 												<div class="body">

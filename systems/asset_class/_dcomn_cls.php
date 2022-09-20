@@ -8,7 +8,10 @@ class comncls extends database{
 			$search=$sql_cmd;
 		}
 		else if ($sx_code!=NULL){
-			$search="Select * from $tbl_num where $fild = '$sx_code'";
+			$search = "Select * from $tbl_num where $fild = '$sx_code'";
+			if($this->checkZid($tbl_num) && $_SESSION['zid']>1){
+				$search .=" AND zid in('".$_SESSION['zid']."','1')";
+			}
 		}
 		$qrsearch=mysql_query($search);
 		if($qrsearch){
@@ -300,6 +303,4 @@ class comncls extends database{
 		return $xvoucher;
 	}
 }
-//End Class 
-$cmncls=new comncls();
 ?>

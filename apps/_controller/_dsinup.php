@@ -29,9 +29,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		}
 		$sxcode = $dusr_id;
 	}else if (isset($_POST['dusr_updt'])){
-		if ($_POST['dusr_id']!=NULL && $_POST['dusr_id'] != 'USER-000001'){
-			$_POST['dusr_pswd'] = $cmncls->encryptIt($_POST['dusr_pswd']);
-			$prv_imglnk = $cmncls->newpikval(dusr_info,dusr_id,$_POST['dusr_id']);
+		if ($_POST['dusr_id']!=NULL
+		&& ($_POST['dusr_id'] === $_SESSION['user_id'] || $_SESSION['user_id']==='USER-000001')){
+			$prv_imglnk = $cmncls->newpikval('dusr_info','dusr_id',$_POST['dusr_id']);
 			if($_FILES['dusr_img']['name'] !=NULL){
 				$new_dusr_img = $cmncls->img_uplod('dusr_img','ap_img/user_img/',4096*1024,'-'.$_POST['dusr_id'].'-'.sprintf("%03s", $prv_imglnk[slno]));
 				$prv_img =$prv_imglnk[dusr_img]; 
@@ -40,6 +40,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			}
 			$_POST['dusr_img']=$new_dusr_img;
 			$skip_valus=array('dusr_updt','ppg','dusr_id');
+			if($_POST['dusr_pswd']==''){
+				$skip_valus[] = 'dusr_pswd';
+			}else{
+				$_POST['dusr_pswd'] = $cmncls->encryptIt($_POST['dusr_pswd']);
+			}
 			$_POST['dupdt_id']=$_SESSION['user_id'];
 			$updsts=$action->update_data('dusr_info',$_POST,$skip_valus,'dusr_id',$_POST['dusr_id']);
 			if ($updsts == true){
@@ -58,7 +63,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 			$sxcode = $_POST['dusr_id'];
 		}
 	}else if(isset($_POST['dusr_dlt'])){
-		if ($_POST['dusr_id'] != 'USER-000001'){
+		if ($_POST['dusr_id'] === $_SESSION['user_id'] || $_SESSION['user_id']==='USER-000001'){
 			$whr_cod = "where dusr_id = '".$_POST['dusr_id']."' and sts ='1'";
 			$dusr_img = $cmncls->newpikval('dusr_info','dusr_id',$_POST['dusr_id']);
 			$dusr_img =$dusr_img['dusr_img'];

@@ -13,7 +13,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="body">
+								<div class="body table-responsive">
 									<table class="table table-bordered table-striped table-hover dataTable" sort="2" sort_type="desc" data="receive_list">
 										<thead>
 											<tr>

@@ -1,0 +1,16 @@
+{
+	"name": "adt/advance_pos",
+	"description": "Advance universal POS",
+	"autoload": {
+		"psr-4": {
+			"Adt\\": "./"
+		}
+	},
+	"authors": [
+		{
+			"name": "Masud3114",
+			"email": "masud3114@gmail.com"
+		}
+	],
+	"require": {}
+}

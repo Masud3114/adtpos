@@ -7,7 +7,7 @@
 								<input class="btn btn-warning" name="dcmpny_ad"  type="submit" id="dcmpny_ad" value="Add" />
 								<input class="btn btn-warning" name="dcmpny_updt" type="submit" id="dcmpny_updt" value="Update" />
 								<input class="btn btn-warning" name="dcmpny_dlt" type="submit" id="dcmpny_dlt" value="Delete" onclick="return confirm('Are you sure you want to delete?');" />
-								<input class="btn btn-warning" name="dcmpny_clr" type="button" id="dcmpny_clr" onclick="parent.location='index.php?pg=com_bnc_info'" value="Clear" />
+								<input class="btn btn-warning" name="dcmpny_clr" type="button" id="dcmpny_clr" onclick="parent.location='index.php?pg=<?php echo $_GET['pg'] ?>'" value="Clear" />
 							</div>
 						</div>
 						<div class="row card">
@@ -40,7 +40,7 @@
 									</div>
 									<div class="file-path-wrapper form-line"></div>
 								</div>
-								<img class="imgpreviewl" src="<? echo $pickval[dcmpny_logoi];?>" id="ImageIdi"/>
+								<img class="imgpreviewl" style="" src="<? echo $pickval[dcmpny_logoi];?>" id="ImageIdi"/>
 								<div class="file-field input-field form-group">
 									<div class="btn btn-warning">
 										<span> Company Logo (Inverse) </span>

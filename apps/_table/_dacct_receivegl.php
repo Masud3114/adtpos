@@ -37,7 +37,7 @@ $columns = array(
 	
 );
 $where= array(
-	" prfx_name ='RE-'",
+	" prfx_name ='RE-' AND zid ='".$_SESSION['zid']."' ",
 );
 echo json_encode(
 	SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns,NULL,$where)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stock_report" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0d9497b-267f-4512-829f-7d1883aff58e">
-	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="root_path" class="java.lang.String" isForPrompting="false">
@@ -28,7 +28,8 @@ round(sum(case when (inop_header.trn_cat = '5') then inop_details.item_qty end),
 round(sum(case when (inop_header.trn_type = '2') then inop_details.item_qty end),2) AS total_issue,
 round(sum(inop_details.item_qty * (case when (inop_header.trn_type = '2') then -(1) else 1 end)),2) AS balance
 
-from dcmpny_info, inop_details
+from inop_details
+LEFT JOIN dcmpny_info ON inop_details.zid=dcmpny_info.slno
 LEFT JOIN inop_header ON inop_details.hslno = inop_header.slno
 LEFT JOIN item_info ON inop_details.item_code = item_info.item_code
 LEFT JOIN viunit_info ON item_info.item_unit=viunit_info.slno
